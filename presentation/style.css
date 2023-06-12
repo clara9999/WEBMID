@@ -1,0 +1,20 @@
+body {
+    text-align: center;
+}
+
+h1 {
+    color: #FF69B4;
+}
+
+button {
+    background-color: #FF69B4;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+#princessInfo, #joke {
+    margin-top: 20px;
+}
