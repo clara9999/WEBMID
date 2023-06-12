@@ -1,11 +1,17 @@
-var player;
+
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var player;
+
 
 // This function will be called by YouTube API once it's ready
-function onYouTubeIframeAPIReady() {
+window.onYouTubeIframeAPIReady= function() {
     player = new YT.Player('player', {
         height: '0',
         width: '0',
-        videoId: 'qYUEnLBw4Jk', // default YouTube video ID
+        videoId: 'FxjXq9PkvfY', // default YouTube video ID
         playerVars: {
             autoplay: 1, // 是否自動播放
             controls: 0, // 是否顯示控制項
@@ -16,6 +22,13 @@ function onYouTubeIframeAPIReady() {
         events: {
             onReady: onPlayerReady,
             onStateChange: onPlayerStateChange
+        }
+    });
+    $("input").on("click", function() {
+        if (player) {
+            // 加载并播放视频...
+        } else {
+            console.error("YouTube Player is not ready yet.");
         }
     });
 }
@@ -172,8 +185,12 @@ $("input").on("click", function() {
 
     // 播放對應的YouTube音樂
     var videoId = randomOption.videoId;
+    if (player) {
         player.loadVideoById(videoId, 0, "large");
         player.playVideo();
+    } else {
+        console.error("YouTube Player is not ready yet.");
+    }
     });
 
 
@@ -185,5 +202,25 @@ $("input").on("click", function() {
     
 });
 
+
+
+function onPlayerReady(event) {
+    event.target.playVideo();
+}
+
+// function onPlayerStateChange(event) {
+//     if (event.data == YT.PlayerState.PLAYING && !done) {
+//         setTimeout(stopVideo, 6000);
+//         done = true;
+//     }
+// }
+
+function stopVideo() {
+    player.stopVideo();
+}
+
+$(document).ready(function() {
+    onYouTubeIframeAPIReady();
+});
 
 
